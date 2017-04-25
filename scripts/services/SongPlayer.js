@@ -43,6 +43,15 @@
             songs.playing = true;
         };
         
+        /**
+        * @desc stops Buzz object from playing and sets songs.playing to false
+        *@param {object} songs
+        */
+        var stopSong = function(songs) {
+            currentBuzzObject.stop();
+            songs.playing = null;
+        };
+        
         SongPlayer.currentSong = null;
         
         /**
@@ -90,8 +99,24 @@
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong();
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
+        
+        /**
+        * @function SongPlayer.previous
+        * @desc method gives 'Next Song' functionality to playerBar
+        */
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+            
+            if (currentSongIndex > currentAlbum.songs.length) {
+                stopSong();
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
