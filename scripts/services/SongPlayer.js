@@ -15,7 +15,7 @@
         * @desc Stops currently playing song and loads a new audio file as currentBuzzObject
         * @param {Object} songs
         */
-        var setSong = function(song) {
+        var setSong = function(songs) {
             if (currentBuzzObject) {
                 currentBuzzObject.stop();
                 currentSong.playing = null;
@@ -29,12 +29,18 @@
             currentSong = songs;
         };
         
+        
         SongPlayer.play = function(songs) {
             if (currentSong !== songs) {
                 setSong(songs);
                 currentBuzzObject.play();
             songs.playing = true;
-            };
+            } else if (currentSong === songs) {
+                if (currentBuzzObject.isPaused()) {
+                    currentBuzzObject.play();
+                }
+            }
+        };
         
         SongPlayer.pause = function(songs) {
             currentBuzzObject.pause();
@@ -43,7 +49,7 @@
         
         return SongPlayer;
     }
-    
+        
     angular 
         .module('blocJams')
         .factory('SongPlayer', SongPlayer);
