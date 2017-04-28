@@ -67,6 +67,12 @@
         SongPlayer.currentTime = null;
         
         /**
+        * @desc Stores value for volume level
+        * @type {Number}
+        */
+        SongPlayer.volume = null;
+        
+        /**
         * @function getSongIndex
         * @ desc stores Index value of song
         * @param {object} songs
@@ -144,6 +150,12 @@
         SongPlayer.setCurrentTime = function(time) {
             if (currentBuzzObject) {
                 currentBuzzObject.setTime(time);
+            }
+        };
+        
+        SongPlayer.setCurrentVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
             }
         };
         
